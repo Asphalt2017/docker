@@ -1,33 +1,29 @@
-version: '3.5'
-
-volumes:
-  -shared_dir:
-    external: TRUE
+version: "3.9"
 
 services:
   preprocess:
-    image: 
-      aixtop/preproces:0.1
+    image: preprocess:1.0
     volumes: 
-      - shared_dir:./user_data
+      - shared_dir:/data
 
   models:
-    depends-on: 
+    depends_on: 
       - preprocess
-    image: aixtop/model:0.1
+    image: model:1.0
     volumes: 
-      - shared_dir:./user_data
+      - shared_dir:/data
 
   prediction:
-    depends-on: 
+    depends_on: 
       - preprocess
       - models
-    image: 
-      aixtop/prdiction:0.1
+    image: pred:1.0
     volumes: 
-      - shared_dir:./user_data
+      - shared_dir:/data
 
-
+volumes:
+  shared_dir:
+ 
   
 
 
